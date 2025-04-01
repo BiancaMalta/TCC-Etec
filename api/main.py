@@ -1,5 +1,7 @@
 from fastapi import FastAPI
-from .routes.movieRoutes import router as movieRoutes  # Use ponto para indicar que está no mesmo pacote
+from fastapi.responses import JSONResponse
+from .routes.movieRoutes import router as movieRoutes
+from .routes.avaliacoesRoutes import router as avaliacoesRoutes  # Importe a nova rota
 
 app = FastAPI()
 
@@ -8,9 +10,11 @@ def read_root():
     return {"message": "Welcome to the Movie Recommendation API!"}
 
 # Inclui as rotas de filmes
-app.include_router(movieRoutes, prefix="/api")  # Adicionando um prefixo para rotas, se desejado
+app.include_router(movieRoutes, prefix="/api")
+# Inclui as rotas de avaliações
+app.include_router(avaliacoesRoutes, prefix="/api/avaliacoes")
 
-# Função para configurar o tratamento de erros (opcional)
+# Função para configurar o tratamento de erros
 @app.exception_handler(Exception)
 async def global_exception_handler(request, exc):
     return JSONResponse(
