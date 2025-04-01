@@ -14,21 +14,33 @@ CREATE TABLE IF NOT EXISTS usuarios (
     data_criacao TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
--- Tabela de histórico de visualização, favoritos e comentários
+-- Tabela de avaliações de filmes (API de Avaliações)
+CREATE TABLE IF NOT EXISTS avaliacoes (
+    id_avaliacao INTEGER PRIMARY KEY AUTOINCREMENT,
+    id_usuario INTEGER NOT NULL,
+    id_filme_tmdb INTEGER NOT NULL,
+    nota INTEGER CHECK (nota BETWEEN 0 AND 5) NOT NULL,
+    comentario TEXT,
+    data_avaliacao TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (id_usuario) REFERENCES usuarios(id_usuario) ON DELETE CASCADE,
+    FOREIGN KEY (id_filme_tmdb) REFERENCES filmes(id_filme_tmdb) ON DELETE CASCADE
+);
+
+---------------------------------------------------------------------------------------------------------
+
+-- Tabela de histórico de visualização e favoritos
 CREATE TABLE IF NOT EXISTS historico_visualizacao (
     id_usuario INTEGER,
     id_filme_tmdb INTEGER NOT NULL,
     data_visualizacao TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     favorito INTEGER DEFAULT 0 CHECK (favorito IN (0,1)),
-    comentario TEXT,
     nota INTEGER CHECK (nota BETWEEN 1 AND 5),
     FOREIGN KEY (id_usuario) REFERENCES usuarios(id_usuario) ON DELETE CASCADE,
     FOREIGN KEY (id_filme_tmdb) REFERENCES filmes(id_filme_tmdb) ON DELETE CASCADE,
     PRIMARY KEY (id_usuario, id_filme_tmdb)
-    );
+);
 
 ---------------------------------------------------------------------------------------------------------
-
 
 -- Tabela de preferências de tags: Armazena tags favoritas
 CREATE TABLE IF NOT EXISTS preferencias_usuario (
