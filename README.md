@@ -248,7 +248,7 @@ Essa arquitetura distribui bem as responsabilidades, facilitando a manutenção 
  ├── main.py
 ```
 
-A API foi projetada para permitir que os usuários avaliem filmes por meio de notas e comentários. O banco de dados `schema.sql` é utilizado para armazenar as avaliações. A estrutura do código está modularizada da seguinte forma: database.py gerencia o armazenamento e recuperação de dados, avaliacoesController.py processa as requisições, avaliacoesRoutes.py define os endpoints, avaliacoesValidators.py verifica a validade dos dados, e main.py registra as rotas e inicializa a aplicação.
+A API foi projetada para permitir que os usuários avaliem filmes por meio de notas e comentários. O banco de dados `schema.sql` é utilizado para armazenar as avaliações. A estrutura do código está modularizada da seguinte forma: `database.py` gerencia o armazenamento e recuperação de dados, `avaliacoesController.py` processa as requisições, `avaliacoesRoutes.py` define os endpoints, `avaliacoesValidators.py` verifica a validade dos dados, e `main.py` registra as rotas e inicializa a aplicação.
 
 ---
 
